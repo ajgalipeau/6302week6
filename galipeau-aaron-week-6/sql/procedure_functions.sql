@@ -216,3 +216,48 @@ BEGIN
         S.student_id;
 END $$
 DELIMITER ;
+
+-- Procedure to delete all students - Admin Only
+DROP PROCEDURE IF EXISTS DeleteAllStudents;
+
+DELIMITER $$
+CREATE PROCEDURE DeleteAllStudents()
+BEGIN
+    DELETE FROM STUDENT;
+END $$
+DELIMITER ;
+
+-- Procedure to update a teacher's email - Admin Only
+DROP PROCEDURE IF EXISTS UpdateTeacherEmail;
+
+DELIMITER $$
+CREATE PROCEDURE UpdateTeacherEmail(
+    IN t_id INT,
+    IN new_email VARCHAR(100)
+)
+BEGIN
+    UPDATE TEACHER
+    SET email_address = new_email
+    WHERE teacher_id = t_id;
+END $$
+DELIMITER ;
+
+-- Ensure the function getTeacherId exists (already defined above)
+DROP FUNCTION IF EXISTS getTeacherId;
+
+DELIMITER $$
+CREATE FUNCTION getTeacherId(firstName VARCHAR(50), lastName VARCHAR(50))
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE teacherId INT;
+
+    -- Select the teacher ID based on valid input
+    SELECT teacher_id INTO teacherId
+    FROM TEACHER
+    WHERE first_name = firstName AND last_name = lastName
+    LIMIT 1;
+
+    RETURN teacherId;
+END $$
+DELIMITER ;

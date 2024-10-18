@@ -1,0 +1,642 @@
+2024-10-18 02:58:53,986 - INFO - Starting application with role: read_only
+2024-10-18 02:58:54,050 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 02:58:54,050 - INFO - You're connected to the database: SCHOOL
+2024-10-18 02:58:54,050 - INFO - Initialized StudentDAL with role: read_only
+2024-10-18 02:58:54,050 - INFO - Initialized Student object with role: read_only
+2024-10-18 02:58:54,069 - INFO - Fetched all students with classes.
+2024-10-18 02:58:54,069 - INFO - Retrieved students with classes.
+2024-10-18 02:58:54,069 - INFO - Fetching Data from the Database:
+2024-10-18 03:19:02,894 - INFO - Starting application with role: read_only
+2024-10-18 03:19:02,991 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:19:02,991 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:19:03,002 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:19:03,002 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:19:03,002 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:19:03,002 - INFO - Initialized Student object with role: read_only
+2024-10-18 03:19:03,012 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:19:03,012 - INFO - Fetched all students with classes.
+2024-10-18 03:19:03,012 - INFO - Retrieved students with classes.
+2024-10-18 03:19:03,012 - INFO - Fetching Data from the Database:
+2024-10-18 03:19:19,513 - ERROR - Unauthorized attempt to add a student.
+2024-10-18 03:19:19,517 - ERROR - Error: You do not have permission to add a student.
+2024-10-18 03:19:29,561 - INFO - 
+Window is closing.
+
+2024-10-18 03:19:29,577 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 03:19:29,579 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 03:19:29,580 - INFO - Disconnected all StudentDAL connections.
+2024-10-18 03:23:14,236 - INFO - Starting application with role: modify_user
+2024-10-18 03:23:14,307 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:23:14,307 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:23:14,317 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:23:14,317 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:23:14,317 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:23:14,317 - INFO - Initialized Student object with role: modify_user
+2024-10-18 03:23:14,335 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:23:14,335 - INFO - Fetched all students with classes.
+2024-10-18 03:23:14,335 - INFO - Retrieved students with classes.
+2024-10-18 03:23:14,335 - INFO - Fetching Data from the Database:
+2024-10-18 03:23:48,777 - INFO - Query executed by modify_user: CALL InsertStudent(%s, %s, %s, %s, %s)
+2024-10-18 03:23:48,777 - INFO - Executed InsertStudent procedure for: test test
+2024-10-18 03:23:48,777 - INFO - Called add_using_procedure for student: test test
+2024-10-18 03:23:48,796 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:23:48,796 - INFO - Fetched all students with classes.
+2024-10-18 03:23:48,797 - INFO - Retrieved students with classes.
+2024-10-18 03:23:48,797 - INFO - Raw Data from Query:
+2024-10-18 03:23:48,814 - INFO - Student Successfully Added!
+2024-10-18 03:23:58,902 - INFO - 
+Window is closing.
+
+2024-10-18 03:23:58,913 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 03:23:58,916 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 03:23:58,916 - INFO - Disconnected all StudentDAL connections.
+2024-10-18 03:28:31,545 - INFO - Starting application with role: ADMIN_USER
+2024-10-18 03:28:31,649 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:28:31,649 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:28:31,656 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:28:31,656 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:28:31,656 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:28:31,656 - INFO - Initialized Student object with role: ADMIN_USER
+2024-10-18 03:28:31,711 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:28:31,713 - INFO - Fetched all students with classes.
+2024-10-18 03:28:31,713 - INFO - Retrieved students with classes.
+2024-10-18 03:28:31,713 - INFO - Fetching Data from the Database:
+2024-10-18 03:28:50,127 - ERROR - Unauthorized attempt to add a student.
+2024-10-18 03:28:50,128 - ERROR - Error: You do not have permission to add a student.
+2024-10-18 03:29:32,323 - INFO - Starting application with role: admin_user
+2024-10-18 03:29:32,369 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:29:32,369 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:29:32,375 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:29:32,375 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:29:32,375 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:29:32,375 - INFO - Initialized Student object with role: admin_user
+2024-10-18 03:29:32,391 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:29:32,392 - INFO - Fetched all students with classes.
+2024-10-18 03:29:32,392 - INFO - Retrieved students with classes.
+2024-10-18 03:29:32,392 - INFO - Fetching Data from the Database:
+2024-10-18 03:29:52,793 - INFO - Query executed by modify_user: CALL InsertStudent(%s, %s, %s, %s, %s)
+2024-10-18 03:29:52,794 - INFO - Executed InsertStudent procedure for: aaron galipeau
+2024-10-18 03:29:52,795 - INFO - Called add_using_procedure for student: aaron galipeau
+2024-10-18 03:29:52,800 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:29:52,800 - INFO - Fetched all students with classes.
+2024-10-18 03:29:52,801 - INFO - Retrieved students with classes.
+2024-10-18 03:29:52,801 - INFO - Raw Data from Query:
+2024-10-18 03:29:52,818 - INFO - Student Successfully Added!
+2024-10-18 03:42:32,263 - INFO - Starting application with role: admin_user
+2024-10-18 03:42:32,316 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:42:32,316 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:42:32,325 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:42:32,325 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:42:32,325 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:42:32,326 - INFO - Initialized Student object with role: admin_user
+2024-10-18 03:42:32,335 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:42:32,335 - INFO - Fetched all students with classes.
+2024-10-18 03:42:32,335 - INFO - Retrieved students with classes.
+2024-10-18 03:42:32,335 - INFO - Fetching Data from the Database:
+2024-10-18 03:42:57,500 - INFO - 
+Window is closing.
+
+2024-10-18 03:42:57,518 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 03:42:57,520 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 03:42:57,520 - INFO - Disconnected all StudentDAL connections.
+2024-10-18 03:48:45,159 - INFO - Starting application with role: admin_user
+2024-10-18 03:48:45,257 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:48:45,257 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:48:45,265 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:48:45,265 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:48:45,266 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:48:45,266 - INFO - Initialized Student object with role: admin_user
+2024-10-18 03:48:45,314 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:48:45,314 - INFO - Fetched all students with classes.
+2024-10-18 03:48:45,314 - INFO - Retrieved students with classes.
+2024-10-18 03:48:45,314 - INFO - Fetching Data from the Database:
+2024-10-18 03:49:04,744 - INFO - 
+Window is closing.
+
+2024-10-18 03:49:04,759 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 03:49:04,761 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 03:49:04,761 - INFO - Disconnected all StudentDAL connections.
+2024-10-18 03:51:33,685 - INFO - Starting application with role: admin_user
+2024-10-18 03:51:33,811 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:51:33,811 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 03:51:33,824 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 03:51:33,824 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 03:51:33,824 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 03:51:33,824 - INFO - Initialized Student object with role: admin_user
+2024-10-18 03:51:33,848 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:51:33,848 - INFO - Fetched all students with classes.
+2024-10-18 03:51:33,849 - INFO - Retrieved students with classes.
+2024-10-18 03:51:33,849 - INFO - Fetching Data from the Database:
+2024-10-18 03:51:45,391 - INFO - Query executed by modify_user: CALL InsertStudent(%s, %s, %s, %s, %s)
+2024-10-18 03:51:45,392 - INFO - Executed InsertStudent procedure for: asdf asdf
+2024-10-18 03:51:45,392 - INFO - Called add_using_procedure for student: asdf asdf
+2024-10-18 03:51:45,401 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:51:45,401 - INFO - Fetched all students with classes.
+2024-10-18 03:51:45,401 - INFO - Retrieved students with classes.
+2024-10-18 03:51:45,401 - INFO - Raw Data from Query:
+2024-10-18 03:51:45,413 - INFO - Student Successfully Added!
+2024-10-18 03:52:00,160 - INFO - Query executed by modify_user: CALL InsertStudent(%s, %s, %s, %s, %s)
+2024-10-18 03:52:00,160 - INFO - Executed InsertStudent procedure for: new user
+2024-10-18 03:52:00,160 - INFO - Called add_using_procedure for student: new user
+2024-10-18 03:52:00,168 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', ') AS ClassSubjects,
+                GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', ') AS ClassGrades,
+                GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', ') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 03:52:00,168 - INFO - Fetched all students with classes.
+2024-10-18 03:52:00,169 - INFO - Retrieved students with classes.
+2024-10-18 03:52:00,169 - INFO - Raw Data from Query:
+2024-10-18 03:52:00,187 - INFO - Student Successfully Added!
+2024-10-18 03:52:46,744 - INFO - 
+Window is closing.
+
+2024-10-18 03:52:46,757 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 03:52:46,759 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 03:52:46,759 - INFO - Disconnected all StudentDAL connections.
+2024-10-18 04:09:06,860 - INFO - Starting application with role: admin_user
+2024-10-18 04:09:07,065 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 04:09:07,065 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 04:09:07,092 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 04:09:07,092 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 04:09:07,092 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 04:09:07,092 - INFO - Initialized Student object with role: admin_user
+2024-10-18 04:09:07,118 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                IFNULL(GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassSubjects,
+                IFNULL(GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassGrades,
+                IFNULL(GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 04:09:07,118 - INFO - Fetched all students with classes.
+2024-10-18 04:09:07,118 - INFO - Retrieved students with classes.
+2024-10-18 04:09:07,118 - INFO - Fetching Data from the Database:
+2024-10-18 04:09:23,381 - ERROR - Error executing query by modify_user: 1062 (23000): Duplicate entry 'test@test.edu' for key 'STUDENT.email_address'
+2024-10-18 04:09:23,382 - ERROR - Integrity error executing InsertStudent: 1062 (23000): Duplicate entry 'test@test.edu' for key 'STUDENT.email_address'
+2024-10-18 04:09:23,383 - ERROR - Error: 1062 (23000): Duplicate entry 'test@test.edu' for key 'STUDENT.email_address'
+2024-10-18 04:09:37,548 - ERROR - Error executing query by modify_user: 1062 (23000): Duplicate entry 'test@test.edu' for key 'STUDENT.email_address'
+2024-10-18 04:09:37,548 - ERROR - Integrity error executing InsertStudent: 1062 (23000): Duplicate entry 'test@test.edu' for key 'STUDENT.email_address'
+2024-10-18 04:09:37,549 - ERROR - Error: 1062 (23000): Duplicate entry 'test@test.edu' for key 'STUDENT.email_address'
+2024-10-18 04:09:44,551 - INFO - Query executed by modify_user: CALL InsertStudent(%s, %s, %s, %s, %s)
+2024-10-18 04:09:44,551 - INFO - Executed InsertStudent procedure for: test key
+2024-10-18 04:09:44,552 - INFO - Called add_using_procedure for student: test key
+2024-10-18 04:09:44,561 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                IFNULL(GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassSubjects,
+                IFNULL(GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassGrades,
+                IFNULL(GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 04:09:44,562 - INFO - Fetched all students with classes.
+2024-10-18 04:09:44,562 - INFO - Retrieved students with classes.
+2024-10-18 04:09:44,562 - INFO - Raw Data from Query:
+2024-10-18 04:09:44,580 - INFO - Student Successfully Added!
+2024-10-18 04:10:23,607 - INFO - Query executed by modify_user: CALL InsertStudent(%s, %s, %s, %s, %s)
+2024-10-18 04:10:23,609 - INFO - Executed InsertStudent procedure for: my name
+2024-10-18 04:10:23,609 - INFO - Called add_using_procedure for student: my name
+2024-10-18 04:10:23,629 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                IFNULL(GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassSubjects,
+                IFNULL(GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassGrades,
+                IFNULL(GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 04:10:23,629 - INFO - Fetched all students with classes.
+2024-10-18 04:10:23,629 - INFO - Retrieved students with classes.
+2024-10-18 04:10:23,629 - INFO - Raw Data from Query:
+2024-10-18 04:10:23,646 - INFO - Student Successfully Added!
+2024-10-18 04:11:37,395 - INFO - 
+Window is closing.
+
+2024-10-18 04:11:37,412 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 04:11:37,414 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 04:11:37,415 - INFO - Disconnected all StudentDAL connections.
+2024-10-18 04:11:41,298 - INFO - Starting application with role: admin_user
+2024-10-18 04:11:41,361 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 04:11:41,361 - INFO - You're connected to the database: SCHOOL as user: read_only
+2024-10-18 04:11:41,367 - INFO - Connected to MySQL Server version 9.0.1
+2024-10-18 04:11:41,367 - INFO - You're connected to the database: SCHOOL as user: modify_user
+2024-10-18 04:11:41,367 - INFO - Initialized StudentDAL with read and modify connections.
+2024-10-18 04:11:41,367 - INFO - Initialized Student object with role: admin_user
+2024-10-18 04:11:41,375 - INFO - Data fetched by read_only: 
+            SELECT
+                S.first_name AS StudentFirstName,
+                S.last_name AS StudentLastName,
+                S.email_address AS StudentEmail,
+                IFNULL(GROUP_CONCAT(C.class_subject ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassSubjects,
+                IFNULL(GROUP_CONCAT(SC.class_grade ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS ClassGrades,
+                IFNULL(GROUP_CONCAT(CONCAT(T.first_name, ' ', T.last_name) ORDER BY C.class_subject SEPARATOR ', '), 'N/A') AS TeacherNames,
+                ROUND(AVG(
+                    CASE SC.class_grade
+                        WHEN 'A' THEN 4.0
+                        WHEN 'B' THEN 3.0
+                        WHEN 'C' THEN 2.0
+                        WHEN 'D' THEN 1.0
+                        WHEN 'F' THEN 0.0
+                        ELSE 0.0
+                    END), 2) AS AverageGrade
+            FROM
+                STUDENT S
+            LEFT JOIN
+                STUDENT_CLASSES SC ON S.student_id = SC.student_id
+            LEFT JOIN
+                CLASSES C ON SC.class_id = C.class_id
+            LEFT JOIN
+                TEACHER T ON C.teacher_id = T.teacher_id
+            GROUP BY
+                S.student_id
+            ORDER BY
+                S.last_name ASC;
+            
+2024-10-18 04:11:41,375 - INFO - Fetched all students with classes.
+2024-10-18 04:11:41,375 - INFO - Retrieved students with classes.
+2024-10-18 04:11:41,375 - INFO - Fetching Data from the Database:
+2024-10-18 04:11:45,649 - INFO - 
+Window is closing.
+
+2024-10-18 04:11:45,653 - INFO - MySQL connection for user read_only is closed.
+2024-10-18 04:11:45,656 - INFO - MySQL connection for user modify_user is closed.
+2024-10-18 04:11:45,656 - INFO - Disconnected all StudentDAL connections.

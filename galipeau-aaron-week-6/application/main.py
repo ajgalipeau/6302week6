@@ -1,5 +1,7 @@
 # main.py
 
 from VIEW.view import View
-if __name__ == '__main__' :
-    View("CSC6302 SCHOOL DB", "User Views App").main_loop()
+
+if __name__ == '__main__':
+    app = View("AARON GALIPEAU MODULE 6 DB", "User Views App")
+    app.main_loop()

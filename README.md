@@ -104,7 +104,12 @@ After starting the Docker container, use MySQL Workbench to run the setup script
    The Makefile is a build automation tool that simplifies common tasks. The `clean` command removes cache files and ensures a fresh start.
 
 2. **Start the Application**
+Navigate to the application directory and perform the following steps depending on the role you want to use. 
+1. Open students.py and modify the role in line 8.
+2. Open view.py and modify the role in line 17.
+3. In your terminal execute the following commands, ensuring you use the correct role from the .env file.
    ```bash
+   export DB_ROLE=read_only
    python3 main.py
    ```
 
