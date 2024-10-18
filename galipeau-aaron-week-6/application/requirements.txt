@@ -1,0 +1,14 @@
+cffi==1.17.1
+clr-loader==0.2.6
+fonttools==4.54.1
+mysql-connector-python==9.0.0
+pip==24.2
+pycparser==2.22
+pythonnet==3.0.4
+rubicon-objc==0.4.9
+setuptools==65.5.0
+toga==0.4.7
+toga-cocoa==0.4.7
+toga-core==0.4.7
+toga-winforms==0.4.7
+travertino==0.3.0
