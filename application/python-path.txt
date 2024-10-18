@@ -1,2 +1,0 @@
-set PYTHONPATH=C:\Users\aaron\Desktop\submission_folder\galipeau-aaron-week-5\application
-python -m BLL.students
